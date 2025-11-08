@@ -29,13 +29,13 @@ app.use("/test",(req,res)=>{
 res.send("Hello from the server");
 });
 
-// app.use("/namaste", (req, res) => {
-//     res.send("namaste!!");
-// });
+app.use("/namaste", (req, res) => {
+    res.send("namaste!!");
+});
 
-// app.use('/',(req,res)=>{
-//     res.send("HelloWorld from the Dashboard!");
-// });
+app.use('/',(req,res)=>{
+    res.send("HelloWorld from the Dashboard!");
+});
 
 // listen the port 
 app.listen(7777, ()=>{
