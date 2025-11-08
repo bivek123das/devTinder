@@ -6,6 +6,7 @@ const app = express();
 
 app.use("/",(req,res,next)=>{
     res.send("Handling / route");
+    next();
 })
 
 app.get("/users",(req,res,next)=>{
