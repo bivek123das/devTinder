@@ -2,29 +2,22 @@ const express = require('express');
 
 const app = express();
 
-// how to handle multiple route hanlders
-app.use("/user",(req,res,next)=>{
-    console.log("Handling first route handlers!!!");
-    next();
-    // res.send("Response 1");  
-},(req,res,next)=>{
-    console.log("Handling second route handlers!!!");
-    // res.send("Response 2");
-    next();
+// GET => /users => middleware chain => request handlers
 
+app.use("/",(req,res,next)=>{
+    res.send("Handling / route");
+})
+
+app.get("/users",(req,res,next)=>{
+     console.log("Handling /user route");
+     next();
 },(req,res,next)=>{
-    console.log("Handling third route handlers!!!");
-    // res.send("Response 3");
-    next();
+    res.send("1st Route handler");
+    // next();
 },(req,res,next)=>{
-    console.log("Handling fourth route handlers!!!");
-    // res.send("Response 4");
-    next();
-},(req,res)=>{
-    console.log("Handling fifth route handlers!!!");
-    res.send("Response 5");
-}
-)
+    res.send("2nd Route handler");
+})
+
 
 
 // listen the port 
