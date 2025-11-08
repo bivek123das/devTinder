@@ -2,40 +2,30 @@ const express = require('express');
 
 const app = express();
 
+// how to handle multiple route hanlders
+app.use("/user",(req,res,next)=>{
+    console.log("Handling first route handlers!!!");
+    next();
+    // res.send("Response 1");  
+},(req,res,next)=>{
+    console.log("Handling second route handlers!!!");
+    // res.send("Response 2");
+    next();
 
-// handling the request and send response
-
-// this route only handle the GET call  to /user
-app.use("/user",(req,res)=>{
-    res.send("HAHAHAHAHAHA")
+},(req,res,next)=>{
+    console.log("Handling third route handlers!!!");
+    // res.send("Response 3");
+    next();
+},(req,res,next)=>{
+    console.log("Handling fourth route handlers!!!");
+    // res.send("Response 4");
+    next();
+},(req,res)=>{
+    console.log("Handling fifth route handlers!!!");
+    res.send("Response 5");
 }
 )
-app.get("/user",(req,res)=>{
-    res.send({firstName:"Bivek",lastName:"Das"}); 
-})
 
-app.post("/user",(req,res)=>{
-    //saving data to DB
-    res.send("Data successfully save to the database!"); 
-})
-
-app.delete("/user",(req,res)=>{
-    //saving data to DB
-    res.send("Deleted successfully!"); 
-})
-
-// this will match all the HTTP Method API calls to /test
-app.use("/test",(req,res)=>{
-res.send("Hello from the server");
-});
-
-app.use("/namaste", (req, res) => {
-    res.send("namaste!!");
-});
-
-app.use('/',(req,res)=>{
-    res.send("HelloWorld from the Dashboard!");
-});
 
 // listen the port 
 app.listen(7777, ()=>{
