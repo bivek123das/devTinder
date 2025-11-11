@@ -1,1 +1,0 @@
-const uri ="mongodb+srv://dad1234meena:<db_password>@namastenode.xu3gfhb.mongodb.net/";
