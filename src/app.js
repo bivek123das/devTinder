@@ -4,18 +4,13 @@ const connectDB = require("./config/database");
 
 const app = express();
 
+app.use(express.json());
 
+// dynamically send the data to db
 app.post("/signup", async (req,res)=>{
 
   // create a new instance of the User model
-   const user = new User({
-    firstName:"Bhaskar",
-    lastName: "Das",
-    email:"das123bhaskar@gmail.com",
-    password:"fdqw1r1",
-    age:26,
-    gender:"male",
-   });
+   const user = new User(req.body);
 
    try{
     await user.save();
@@ -25,6 +20,36 @@ app.post("/signup", async (req,res)=>{
     res.status(400).send("Error saving the user:" +err.message);
    }
 })
+
+// Get user by email
+app.get("/user", async(req,res)=>{
+    const userEmail = req.body.email;
+    console.log(userEmail);
+    try{
+        const users = await User.find({email: userEmail});
+       if(users.length === 0){
+        res.status(404).send("User not found");
+    }else{
+        res.send(users);
+    }
+}
+    catch(err){
+        res.status(400).send("Something went wrong");
+    }
+})
+
+
+// feed API - GET /feed all the user from the database
+app.get("/feed",async (req,res)=>{
+    try{
+        const users = await User.find({});
+        res.send(users);
+    }catch(err){
+        res.status(404).send("Something went wrong");
+    }
+   
+})
+
 
 
 connectDB().then(()=>{
