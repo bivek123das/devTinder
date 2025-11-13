@@ -16,11 +16,21 @@ const userSchema = mongoose.Schema({
         required: true,
         lowercase: true,
         trim: true,
-        unique:true, 
+        unique:true,
+        validate(value){
+            if(!validator.isEmail(value)){
+                throw new Error("Invalid email address :"+ value);
+            }
+        } 
     },
     password:{
         type: String,
         required: true,
+        validate(value){
+            if(!validator.isStrongPassword(value)){
+                throw new Error("Enter a Strong Password :"+ value);
+            }
+        } 
     },
     age:{
         type: Number,
@@ -42,6 +52,11 @@ const userSchema = mongoose.Schema({
     photoUrl:{
         type: String,
         default: "https://placeholderimagegenerator.com/wp-content/uploads/2024/12/Light-person-placeholder-image-portrait_png_.png",
+        validate(value){
+            if(!validator.isURL(value)){
+                throw new Error("Invalid Photo URL :"+ value);
+            }
+        } 
     },
     skills:{
        type: [String],
